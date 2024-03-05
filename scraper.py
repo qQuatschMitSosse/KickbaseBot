@@ -1,18 +1,19 @@
-from bs4 import BeautifulSoup
-from constants import VEREINSLISTE
 import requests
+from bs4 import BeautifulSoup
 
-def scrapeAufstellung():
-    aufstellungen = []
+from constants import CLUBLIST
 
-    for verein in VEREINSLISTE:
-        html_text = requests.get(verein).text
+
+def scrape_lineup():
+    lineups = []
+
+    for club in CLUBLIST:
+        html_text = requests.get(club).text
         soup = BeautifulSoup(html_text, 'lxml')
-        aufstellung = soup.find_all('div', class_='player_name')
+        lineup = soup.find_all('div', class_='player_name')
 
-        for spieler in aufstellung:
-            aufstellungen.append(spieler.text)
+        for player in lineup:
+            lineups.append(player.text)
 
-    return aufstellungen
+    return lineups
 
-print(scrapeAufstellung())

@@ -1,31 +1,26 @@
-import KickbaseScraper
-import constants
+import scraper
 
 
-def comparePlayer(own_team):
-    players = KickbaseScraper.scrapeAufstellung()
+# Compare the players in the own team with the players in the predicted lineup
+# and return a message with the active and inactive players
+def compare_players(own_team):
+    players = scraper.scrape_lineup()
 
-    aktiv = []
-    inaktiv = []
-
+    active = []
+    inactive = []
 
     for player in own_team:
         if player in players:
-            aktiv.append(player)
+            active.append(player)
         else:
-            inaktiv.append(player)
-            #return f'{player} wird am Wochenende nicht spielen.'
+            inactive.append(player)
 
+    message_active = "Am Wochenende spielen aus deinem Team: "
+    for player in active:
+        message_active += player + ", "
 
-    antwortAktiv = 'Am Wochenende spielen aus deinem Team: '
-    for x in aktiv:
-        antwortAktiv += ', ' + x
+    message_inactive = "Am Wochenende spielen aus deinem Team nicht: "
+    for x in inactive:
+        message_inactive += x + ", "
 
-    antwortUnaktiv = 'Am Wochenende spielen aus deinem Team nicht: '
-    for x in inaktiv:
-        antwortUnaktiv += ', ' + x
-
-    return antwortAktiv, antwortUnaktiv
-
-
-
+    return message_active[:-2], message_inactive[:-2]
