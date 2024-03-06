@@ -30,7 +30,7 @@ async def send_lineup_information():
 async def main():
     while True:
         now = datetime.datetime.now()
-        if now.hour == 17 and now.minute == 29:
+        if now.hour == 15 and now.minute == 30:
             await send_lineup_information()
             break
         await asyncio.sleep(60)
